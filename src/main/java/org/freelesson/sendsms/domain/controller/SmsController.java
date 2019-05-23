@@ -6,6 +6,8 @@ import org.freelesson.sendsms.domain.Sms;
 import org.freelesson.sendsms.domain.enums.SmsStatus;
 import org.freelesson.sendsms.service.SmsService;
 import org.freelesson.sendsms.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/sms")
 public class SmsController {
@@ -23,8 +26,10 @@ public class SmsController {
 	SmsService smsService;
 	@Autowired
 	UserService userService;
+	private final  Logger log = LoggerFactory.getLogger(this.getClass());
 	@PostMapping
 	Sms saveSms(@RequestBody Sms sms, @AuthenticationPrincipal String username) {
+		log.info("saving sms to queue");
 		sms.status = SmsStatus.QUEUED;
 		sms.createdOn = new Date();
 		sms.createdBy = userService.findByUsername(username).get().id;
@@ -32,7 +37,9 @@ public class SmsController {
 		if (sms.transmissionTime==null) {
 			sms.transmissionTime = new Date();
 		}
-		return smsService.create(sms);
+		Sms savedSms = smsService.create(sms);
+		log.info("sms to queue with id {}",savedSms.id);
+		return savedSms;
 	}
 	@GetMapping
 	Page<Sms> getSmsList(Pageable pageable) {
