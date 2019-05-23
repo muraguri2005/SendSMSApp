@@ -4,7 +4,7 @@
 This is a simple microservice for sending smses. The microservice currently uses africastalking gateway.
 
 ### Libraries used
-[Africa's Talking Java SDK](https://github.com/AfricasTalkingLtd/africastalking-java)
-[SpringFox](https://springfox.github.io/springfox)
-[Spring Boot](https://plugins.gradle.org/plugin/org.springframework.boot)
-[HyperSQL](http://hsqldb.org)
+1. [Africa's Talking Java SDK](https://github.com/AfricasTalkingLtd/africastalking-java)
+2. [SpringFox](https://springfox.github.io/springfox)
+3. [Spring Boot](https://plugins.gradle.org/plugin/org.springframework.boot)
+4. [HyperSQL](http://hsqldb.org)
