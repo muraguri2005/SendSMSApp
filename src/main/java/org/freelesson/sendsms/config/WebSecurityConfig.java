@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/swagger-ui.html").permitAll()
 		.antMatchers("/swagger-resources/**").permitAll().antMatchers("/v2/api-docs").permitAll()
 		.antMatchers("/swagger-resources/**").permitAll().antMatchers("/webjars/**").permitAll()
+		.antMatchers("/sms/processdeliveryreport").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable();
 	}
@@ -55,7 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
 		.antMatchers("/swagger-ui.html")
 		.antMatchers("/swagger-resources/**").antMatchers("/v2/api-docs")
-		.antMatchers("/swagger-resources/**").antMatchers("/webjars/**");
+		.antMatchers("/swagger-resources/**").antMatchers("/webjars/**")
+		.antMatchers("/sms/processdeliveryreport");
 	}
 
 

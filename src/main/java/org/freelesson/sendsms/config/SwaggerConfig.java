@@ -18,7 +18,6 @@ import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
-import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
@@ -45,10 +44,10 @@ public class SwaggerConfig {
 	public Docket api() {
 		List<ResponseMessage> responses = new ArrayList<>();
 		responses.add(new ResponseMessageBuilder().code(500).message("500 message")
-				.responseModel(new ModelRef("JaxRsErrorResponse")).build());
+				.build());
 		responses.add(new ResponseMessageBuilder().code(403).message("Forbidden!!!!").build());
 		responses.add(new ResponseMessageBuilder().code(401).message("Unauthorized!!!!").build());
-		Docket docket = new Docket(DocumentationType.SWAGGER_2).groupName("barba-api").select()
+		Docket docket = new Docket(DocumentationType.SWAGGER_2).groupName("sendms-api").select()
 				.apis(RequestHandlerSelectors.basePackage("org.freelesson.sendsms.domain.controller"))
 				.paths(PathSelectors.any())
 				.build().useDefaultResponseMessages(false).globalResponseMessage(RequestMethod.GET, responses)
@@ -63,8 +62,8 @@ public class SwaggerConfig {
 		return docket;
 	}
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Barba API")
-				.description("Barba API.")
+		return new ApiInfoBuilder().title("SendSMS API")
+				.description("SendSMS API.")
 				.termsOfServiceUrl("").contact(new Contact("Free Lesssons Limited", "https://github.com/muraguri2005", "muraguri2005@gmail.com")).version("0.0.1").build();
 		
 	}
