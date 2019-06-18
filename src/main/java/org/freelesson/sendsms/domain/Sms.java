@@ -39,6 +39,7 @@ public class Sms {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
+	@NotNull(message="status is required")
 	public SmsStatus status;
 	
 	public String statusComments;
@@ -46,12 +47,15 @@ public class Sms {
 	public String externalId;
 	
 	@Column(nullable=false)
+	@NotNull(message="createdOn is required")
 	public Date createdOn;
 	
 	@Column(nullable=false)
+	@NotNull(message="createdBy is required")
 	public Long createdBy;
 	
 	@Column(nullable=false)
+	@NotNull(message="transmissionTime is required")
 	public Date transmissionTime;
 	
 	@Column(nullable=false)
