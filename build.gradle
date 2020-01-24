@@ -25,6 +25,6 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'io.springfox:springfox-spring-web:2.9.2'
 	implementation 'org.hsqldb:hsqldb:2.4.1'
-	implementation 'com.africastalking:core:3.4.0'
+	implementation 'com.africastalking:core:3.4.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
