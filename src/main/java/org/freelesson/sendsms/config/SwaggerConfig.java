@@ -48,7 +48,7 @@ public class SwaggerConfig {
 		responses.add(new ResponseMessageBuilder().code(403).message("Forbidden!!!!").build());
 		responses.add(new ResponseMessageBuilder().code(401).message("Unauthorized!!!!").build());
 		Docket docket = new Docket(DocumentationType.SWAGGER_2).groupName("sendms-api").select()
-				.apis(RequestHandlerSelectors.basePackage("org.freelesson.sendsms.domain.controller"))
+				.apis(RequestHandlerSelectors.basePackage("org.freelesson.sendsms.controller"))
 				.paths(PathSelectors.any())
 				.build().useDefaultResponseMessages(false).globalResponseMessage(RequestMethod.GET, responses)
 				.securitySchemes(Arrays.asList(securityScheme()))

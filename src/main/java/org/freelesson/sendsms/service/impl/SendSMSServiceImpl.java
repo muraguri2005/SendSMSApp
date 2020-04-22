@@ -37,7 +37,7 @@ public class SendSMSServiceImpl {
 	
 	@Autowired
 	SmsRepository smsRepository;
-	@Scheduled(fixedDelay=60000)
+	@Scheduled(fixedDelay=60000, initialDelay = 180000)
 	public void sendSMSFromQueue() {
 		Pageable pageable=PageRequest.of(0, 5);
 		List<Sms> unSentSmsList = smsRepository.findByStatusAndTransmissionTimeLessThan(SmsStatus.QUEUED, new Date(), pageable);

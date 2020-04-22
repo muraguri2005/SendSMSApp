@@ -1,4 +1,4 @@
-package org.freelesson.sendsms.domain.controller;
+package org.freelesson.sendsms.controller;
 
 import java.util.Date;
 

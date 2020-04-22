@@ -29,7 +29,8 @@ public class User {
 	@JsonIgnore
 	@Column(nullable=false)
 	public String password;
-	
+
+	@Column(name = "enabled")
 	public boolean isEnabled=false;
 	
 	@ManyToMany

@@ -19,7 +19,7 @@ import org.freelesson.sendsms.domain.enums.SmsStatus;
 @Table(name="sms")
 public class Sms {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
 	public Long id;
 	
