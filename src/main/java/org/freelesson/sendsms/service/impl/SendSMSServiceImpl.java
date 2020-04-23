@@ -12,7 +12,6 @@ import org.freelesson.sendsms.exception.BaseException;
 import org.freelesson.sendsms.repository.SmsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,17 +25,21 @@ import com.africastalking.sms.Recipient;
 public class SendSMSServiceImpl {
 	String username="sandbox";
 	String apiKey="4dde814dcaeb22146f2ec9be84c4a5678c275cdb98b80c3a2920b2dd339044bb";
-	@Autowired
-	org.freelesson.sendsms.service.SmsService smsService;
+
+	final org.freelesson.sendsms.service.SmsService smsService;
+	final  SmsRepository smsRepository;
 	private final  Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@PostConstruct
     public void init() {
         AfricasTalking.initialize(username, apiKey);
     }
-	
-	@Autowired
-	SmsRepository smsRepository;
+
+    public SendSMSServiceImpl(org.freelesson.sendsms.service.SmsService smsService,SmsRepository smsRepository) {
+		this.smsService = smsService;
+		this.smsRepository = smsRepository;
+	}
+
 	@Scheduled(fixedDelay=60000, initialDelay = 180000)
 	public void sendSMSFromQueue() {
 		Pageable pageable=PageRequest.of(0, 5);

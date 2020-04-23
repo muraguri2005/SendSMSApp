@@ -7,16 +7,18 @@ import org.freelesson.sendsms.exception.BaseException;
 import org.freelesson.sendsms.exception.ObjectNotFoundException;
 import org.freelesson.sendsms.repository.SmsRepository;
 import org.freelesson.sendsms.service.SmsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SmsServiceImpl implements SmsService {
-	@Autowired
-	SmsRepository smsRepository;
-	
+	final SmsRepository smsRepository;
+
+	public SmsServiceImpl(SmsRepository smsRepository) {
+		this.smsRepository = smsRepository;
+	}
+
 	@Override
 	public Sms create(Sms sms) {
 		return smsRepository.save(sms);
