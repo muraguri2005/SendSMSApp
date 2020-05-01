@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import org.freelesson.sendsms.domain.Sms;
 import org.freelesson.sendsms.domain.enums.SmsStatus;
 import org.freelesson.sendsms.exception.BaseException;
+import org.freelesson.sendsms.properties.AfricasTalkingProperties;
 import org.freelesson.sendsms.repository.SmsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +24,12 @@ import com.africastalking.sms.Recipient;
 
 @Service
 public class SendSMSServiceImpl {
-	String username="sandbox";
-	String apiKey="4dde814dcaeb22146f2ec9be84c4a5678c275cdb98b80c3a2920b2dd339044bb";
-
 	final org.freelesson.sendsms.service.SmsService smsService;
 	final  SmsRepository smsRepository;
 	private final  Logger log = LoggerFactory.getLogger(this.getClass());
-	
-	@PostConstruct
-    public void init() {
-        AfricasTalking.initialize(username, apiKey);
-    }
 
-    public SendSMSServiceImpl(org.freelesson.sendsms.service.SmsService smsService,SmsRepository smsRepository) {
+    public SendSMSServiceImpl(org.freelesson.sendsms.service.SmsService smsService, SmsRepository smsRepository, AfricasTalkingProperties africasTalkingProperties) {
+		AfricasTalking.initialize(africasTalkingProperties.getUsername(), africasTalkingProperties.getPassword());
 		this.smsService = smsService;
 		this.smsRepository = smsRepository;
 	}
@@ -58,9 +52,9 @@ public class SendSMSServiceImpl {
 					Recipient recipient=response.get(0);
 					sms.externalId = recipient.messageId;
 					try {
-						sms.cost = Double.parseDouble(recipient.cost);
-					}catch (NumberFormatException e) {
-						
+						sms.cost = Double.parseDouble(recipient.cost.split(" ")[1]);
+					}catch (Exception e) {
+						log.error("error getting cost {}",e.getMessage());
 					}
 					if (!recipient.status.equals("Success")) {
 						sms.status = SmsStatus.FAILED;
