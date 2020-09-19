@@ -1,11 +1,8 @@
 package org.freelesson.sendsms.service.impl;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.africastalking.AfricasTalking;
+import com.africastalking.SmsService;
+import com.africastalking.sms.Recipient;
 import org.freelesson.sendsms.domain.Sms;
 import org.freelesson.sendsms.domain.enums.SmsStatus;
 import org.freelesson.sendsms.exception.BaseException;
@@ -18,9 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.africastalking.AfricasTalking;
-import com.africastalking.SmsService;
-import com.africastalking.sms.Recipient;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class SendSMSServiceImpl {

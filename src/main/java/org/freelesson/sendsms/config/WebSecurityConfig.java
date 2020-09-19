@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
 				.antMatchers("/h2-console")
 		.antMatchers("/swagger-ui.html")

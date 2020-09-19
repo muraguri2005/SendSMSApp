@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -37,9 +38,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	private static String CLIENT_ID= "";
-	private static String CLIENT_SECRET= "";
-	private static String AUTH_SERVER= "http://localhost:8080";
+	private final static String CLIENT_ID= "";
+	private final static String CLIENT_SECRET= "";
+	private final static String AUTH_SERVER= "http://localhost:8080";
 	@Bean
 	public Docket api() {
 		List<ResponseMessage> responses = new ArrayList<>();
@@ -51,8 +52,8 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors.basePackage("org.freelesson.sendsms.controller"))
 				.paths(PathSelectors.any())
 				.build().useDefaultResponseMessages(false).globalResponseMessage(RequestMethod.GET, responses)
-				.securitySchemes(Arrays.asList(securityScheme()))
-				.securityContexts(Arrays.asList(securityContext()));
+				.securitySchemes(Collections.singletonList(securityScheme()))
+				.securityContexts(Collections.singletonList(securityContext()));
 		docket.directModelSubstitute(LocalDate.class, java.sql.Date.class);
 		docket.directModelSubstitute(LocalDateTime.class, java.util.Date.class);
 		docket.directModelSubstitute(OffsetDateTime.class, java.util.Date.class);
@@ -71,16 +72,15 @@ public class SwaggerConfig {
 	private SecurityContext securityContext() {
 	    return SecurityContext.builder()
 	      .securityReferences(
-	        Arrays.asList(new SecurityReference("spring_oauth", scopes())))
+				  Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
 	      .forPaths(PathSelectors.any())
 	      .build();
 	}
 	private AuthorizationScope[] scopes() {
-	    AuthorizationScope[] scopes = { 
-	      new AuthorizationScope("read", "for read operations"), 
-	      new AuthorizationScope("write", "for write operations"), 
-	      new AuthorizationScope("foo", "Access foo API") };
-	    return scopes;
+		return new AuthorizationScope[]{
+		  new AuthorizationScope("read", "for read operations"),
+		  new AuthorizationScope("write", "for write operations"),
+		  new AuthorizationScope("foo", "Access foo API") };
 	}
 	
 	@Bean
@@ -98,12 +98,11 @@ public class SwaggerConfig {
 	        .tokenRequestEndpoint(
 	          new TokenRequestEndpoint(AUTH_SERVER + "/authorize", CLIENT_ID, CLIENT_ID))
 	        .build();
-	 
-	    SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
-	        .grantTypes(Arrays.asList(grantType))
-	        .scopes(Arrays.asList(scopes()))
-	        .build();
-	    return oauth;
+
+		return new OAuthBuilder().name("spring_oauth")
+			.grantTypes(Collections.singletonList(grantType))
+			.scopes(Arrays.asList(scopes()))
+			.build();
 	}
 
 }

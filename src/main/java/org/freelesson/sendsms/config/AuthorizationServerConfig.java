@@ -1,7 +1,5 @@
 package org.freelesson.sendsms.config;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 
 
 @Configuration
@@ -46,9 +45,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	}
 	
 	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		tokenEnhancerChain.setTokenEnhancers(Arrays.asList( accessTokenConverter()));
+		tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter()));
 		endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain).authenticationManager(authenticationManager).userDetailsService(userDetailService);
 	}
 	
