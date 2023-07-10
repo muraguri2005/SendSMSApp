@@ -1,6 +1,5 @@
 package org.freelesson.sendsms.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,15 +26,19 @@ import java.util.Collections;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 	
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Autowired
-	UserDetailsService userDetailService;
-	
-	@Autowired
+	private final UserDetailsService userDetailService;
 	@Qualifier("authenticationManagerBean")
-	AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
+	public AuthorizationServerConfig(BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService, AuthenticationManager authenticationManager) {
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.userDetailService = userDetailService;
+		this.authenticationManager = authenticationManager;
+	}
+	
+
+
 	
 	
 	
@@ -72,7 +75,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	
 	
 	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+	public void configure(AuthorizationServerSecurityConfigurer security) {
 		security.allowFormAuthenticationForClients();
 	}
 }

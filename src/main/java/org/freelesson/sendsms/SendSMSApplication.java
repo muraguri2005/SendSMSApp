@@ -17,17 +17,18 @@ import java.util.concurrent.Executor;
 @EnableConfigurationProperties(AfricasTalkingProperties.class)
 public class SendSMSApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SendSMSApplication.class, args);
-	}
-	@Bean
-	public Executor taskExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(2);
-		executor.setMaxPoolSize(2);
-		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("SendSMS-");
-		executor.initialize();
-		return executor;
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SendSMSApplication.class, args);
+    }
+
+    @Bean
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("SendSMS-");
+        executor.initialize();
+        return executor;
+    }
 }

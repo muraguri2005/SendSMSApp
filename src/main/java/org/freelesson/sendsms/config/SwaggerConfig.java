@@ -38,7 +38,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	private final static String CLIENT_ID= "";
+	private final static String  CLIENT_ID= "";
 	private final static String CLIENT_SECRET= "";
 	private final static String AUTH_SERVER= "http://localhost:8080";
 	@Bean
@@ -93,10 +93,8 @@ public class SwaggerConfig {
 	        .build();
 	}
 	private SecurityScheme securityScheme() {
-	    GrantType grantType = new AuthorizationCodeGrantBuilder()
-	        .tokenEndpoint(new TokenEndpoint(AUTH_SERVER + "/oauth/token", "token"))
-	        .tokenRequestEndpoint(
-	          new TokenRequestEndpoint(AUTH_SERVER + "/authorize", CLIENT_ID, CLIENT_ID))
+	    GrantType grantType = new AuthorizationCodeGrantBuilder().tokenEndpoint(new TokenEndpoint(AUTH_SERVER + "/oauth/token", "token")).tokenRequestEndpoint(
+						new TokenRequestEndpoint(AUTH_SERVER + "/authorize", CLIENT_ID, CLIENT_ID))
 	        .build();
 
 		return new OAuthBuilder().name("spring_oauth")
