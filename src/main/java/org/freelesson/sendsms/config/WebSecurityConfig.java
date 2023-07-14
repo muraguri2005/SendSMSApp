@@ -38,10 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable().authorizeRequests()
-                .antMatchers("/h2-console").permitAll()
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll().antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll().antMatchers("/webjars/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                 .antMatchers("/sms/processdeliveryreport").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
@@ -56,10 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/h2-console")
-                .antMatchers("/swagger-ui.html")
-                .antMatchers("/swagger-resources/**").antMatchers("/v2/api-docs")
-                .antMatchers("/swagger-resources/**").antMatchers("/webjars/**")
+                .antMatchers(HttpMethod.GET, "/swagger-ui/**")
                 .antMatchers("/sms/processdeliveryreport");
     }
 
