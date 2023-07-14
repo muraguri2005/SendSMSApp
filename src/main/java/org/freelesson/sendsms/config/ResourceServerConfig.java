@@ -12,23 +12,24 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableResourceServer
 @Configuration
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-	
-	final TokenStore tokenStore;
-	public ResourceServerConfig(TokenStore tokenStore) {
-		this.tokenStore = tokenStore;
-	}
-	@Override
-	public void configure(ResourceServerSecurityConfigurer resources) {
-		resources.tokenStore(tokenStore);
-	}
-	@Bean
-	@Primary
-	public DefaultTokenServices tokenServices() {
-		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-		defaultTokenServices.setTokenStore(tokenStore);
-		defaultTokenServices.setSupportRefreshToken(true);
-		return defaultTokenServices;
-	}
-	
-	
+
+    final TokenStore tokenStore;
+
+    public ResourceServerConfig(TokenStore tokenStore) {
+        this.tokenStore = tokenStore;
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.tokenStore(tokenStore);
+    }
+
+    @Bean
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore);
+        defaultTokenServices.setSupportRefreshToken(true);
+        return defaultTokenServices;
+    }
 }

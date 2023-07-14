@@ -24,58 +24,54 @@ import java.util.Collections;
 @Component
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-	
-
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	private final UserDetailsService userDetailService;
-	@Qualifier("authenticationManagerBean")
-	private final AuthenticationManager authenticationManager;
-	public AuthorizationServerConfig(BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService, AuthenticationManager authenticationManager) {
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-		this.userDetailService = userDetailService;
-		this.authenticationManager = authenticationManager;
-	}
-	
 
 
-	
-	
-	
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("client").authorizedGrantTypes("password").secret(bCryptPasswordEncoder.encode("secret")).scopes("all");
-	}
-	
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter()));
-		endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain).authenticationManager(authenticationManager).userDetailsService(userDetailService);
-	}
-	
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	@Bean
-	public TokenStore tokenStore() {
-		return new JwtTokenStore(accessTokenConverter());
-	}
-	
-	@Bean 
-	public JwtAccessTokenConverter accessTokenConverter() {
-		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+    private final UserDetailsService userDetailService;
+    @Qualifier("authenticationManagerBean")
+    private final AuthenticationManager authenticationManager;
+
+    public AuthorizationServerConfig(BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService, AuthenticationManager authenticationManager) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userDetailService = userDetailService;
+        this.authenticationManager = authenticationManager;
+    }
+
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory().withClient("client").authorizedGrantTypes("password").secret(bCryptPasswordEncoder.encode("secret")).scopes("all");
+    }
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter()));
+        endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain).authenticationManager(authenticationManager).userDetailsService(userDetailService);
+    }
+
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
+    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey("S3nd");
         try {
-			jwtAccessTokenConverter.afterPropertiesSet();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return jwtAccessTokenConverter;
-	}
-	
-	
-	
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) {
-		security.allowFormAuthenticationForClients();
-	}
+            jwtAccessTokenConverter.afterPropertiesSet();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jwtAccessTokenConverter;
+    }
+
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) {
+        security.allowFormAuthenticationForClients();
+    }
 }
