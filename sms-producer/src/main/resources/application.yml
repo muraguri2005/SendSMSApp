@@ -8,6 +8,8 @@ spring:
     name: sms-producer
   lifecycle:
     timeout-per-shutdown-phase: 1m
+  kafka:
+    bootstrap-servers: PLAINTEXT://localhost:9092
 com:
   datatab:
     send-sms-queue-name: SEND_SMS_QUEUE

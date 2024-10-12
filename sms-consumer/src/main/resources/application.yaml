@@ -12,6 +12,13 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9000
+  kafka:
+    bootstrap-servers: localhost:9092
+    admin:
+      security:
+        protocol: PLAINTEXT
+    consumer:
+      group-id: SEND_SMS_GROUP
 springdoc:
   swagger-ui:
     path: /swagger-ui
