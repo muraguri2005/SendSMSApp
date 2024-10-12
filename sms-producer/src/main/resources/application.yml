@@ -1,0 +1,23 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+  application:
+    name: sms-producer
+  lifecycle:
+    timeout-per-shutdown-phase: 1m
+com:
+  datatab:
+    send-sms-queue-name: SEND_SMS_QUEUE
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  shutdown: graceful
