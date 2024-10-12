@@ -1,0 +1,19 @@
+com:
+  datatab:
+    send-sms-queue-name: SEND_SMS_QUEUE
+    send-sms-queue-group-id: SEND_SMS_GROUP
+    africas-talking-password: 4dde814dcaeb22146f2ec9be84c4a5678c275cdb98b80c3a2920b2dd339044bb
+    africas-talking-username: sandbox
+spring:
+  application:
+    name: sms-consumer
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+server:
+  port: 8088
