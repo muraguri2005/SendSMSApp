@@ -22,7 +22,7 @@ public class Sms {
     //phone number with country code prefix
     @NotNull(message = "recepient is required")
     @Column(nullable = false)
-    public String recepient;
+    public String recipient;
 
     //shortcode or alphanumeric
     @NotNull(message = "sender is required")
@@ -44,7 +44,7 @@ public class Sms {
 
     @Column(nullable = false)
     @NotNull(message = "createdBy is required")
-    public Long createdBy;
+    public String createdBy;
 
     @Column(nullable = false)
     @NotNull(message = "transmissionTime is required")

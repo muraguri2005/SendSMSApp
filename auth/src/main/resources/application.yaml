@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: auth
+#  security:
+#    oauth2:
+#      authorizationserver:
+#        client:
+#          articles-client:
+#            registration:
+#              client-id: client
+#              client-secret: "$2a$10$zBfVJg.ycF6Vqm65rYZvP.lSFMxzxQRGiojsY5NfGeI5WS5pHB/Tu"
+#              client-name: Articles Client
+#              client-authentication-methods:
+#                - client_secret_basic
+#              authorization-grant-types:
+#                - authorization_code
+#                - refresh_token
+#              redirect-uris:
+#                - http://127.0.0.1:8080/login/oauth2/code/client-oidc
+#                - http://127.0.0.1:8080/
+#              scopes:
+#                - "profile"
+#                - "openid"
+#                - "email"
+server:
+  port: 9000
+logging:
+  level:
+    org.springframework.security: trace
