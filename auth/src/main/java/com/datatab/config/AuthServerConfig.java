@@ -64,8 +64,6 @@ public class AuthServerConfig {
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults());
         http
-
-//                .formLogin(withDefaults())
                 .exceptionHandling(configurer ->
                         configurer.defaultAuthenticationEntryPointFor(new LoginUrlAuthenticationEntryPoint("/login")
                                 , new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
