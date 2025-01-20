@@ -29,7 +29,6 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.7.0")
     implementation("com.github.AfricasTalkingLtd.africastalking-java:core:3.4.11")
-    implementation("com.google.code.gson:gson:2.11.0")
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
