@@ -24,3 +24,6 @@ springdoc:
     path: /swagger-ui
 server:
   port: 8088
+logging:
+  level:
+    root: debug
