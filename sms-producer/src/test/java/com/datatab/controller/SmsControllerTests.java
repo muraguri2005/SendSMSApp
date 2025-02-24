@@ -11,16 +11,20 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SmsControllerTests {
     WebTestClient webTestClient;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+
     @BeforeAll
     void setUp() {
         SmsService smsService = mock(SmsService.class);
+        when(smsService.create(any(), any())).thenReturn(new SmsDto());
         webTestClient = WebTestClient.bindToController(new SmsController(smsService)).build();
     }
 
@@ -36,5 +40,16 @@ public class SmsControllerTests {
         var smsDto = new SmsDto();
         smsDto.message = "Go Home";
         webTestClient.post().uri("/sms").headers(httpHeaders -> httpHeaders.setContentType(MediaType.APPLICATION_JSON)).body(Mono.just(objectMapper.writeValueAsString(smsDto)), String.class).exchange().expectStatus().isBadRequest();
+    }
+
+    @Test
+    void whenDataIsValidThenSuccess() throws JsonProcessingException {
+        var smsDto = new SmsDto();
+        smsDto.message = "Go Home";
+        smsDto.recipient = "+254700000001";
+        webTestClient.post().uri("/sms")
+                .headers(httpHeaders -> httpHeaders.setContentType(MediaType.APPLICATION_JSON))
+                .body(Mono.just(objectMapper.writeValueAsString(smsDto)), String.class).exchange()
+                .expectStatus().is2xxSuccessful();
     }
 }
