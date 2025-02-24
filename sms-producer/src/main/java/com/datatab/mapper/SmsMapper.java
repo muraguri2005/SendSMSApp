@@ -5,6 +5,8 @@ import com.datatab.domain.Sms;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface SmsMapper {
-    Sms smsDtoToSms(SmsDto smsDto);
+public abstract class SmsMapper {
+    public abstract Sms smsDtoToSms(SmsDto smsDto);
+
+    public abstract SmsDto smsToSmsDto(Sms sms);
 }

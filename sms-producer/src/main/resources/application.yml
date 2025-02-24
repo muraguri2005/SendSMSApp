@@ -23,3 +23,5 @@ management:
         include: "*"
 server:
   shutdown: graceful
+  error:
+    include-binding-errors: always
