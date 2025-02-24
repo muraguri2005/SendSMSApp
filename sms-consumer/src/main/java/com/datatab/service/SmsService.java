@@ -4,8 +4,6 @@ import com.datatab.domain.Sms;
 import com.datatab.exception.BaseException;
 import com.datatab.exception.ObjectNotFoundException;
 import com.datatab.repository.SmsRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,10 +29,6 @@ public class SmsService {
 
     public Optional<Sms> findByExternalId(String externalId) {
         return smsRepository.findByExternalId(externalId);
-    }
-
-    public Page<Sms> findAll(Pageable pageable) {
-        return smsRepository.findAll(pageable);
     }
 
 }
