@@ -25,3 +25,5 @@ server:
   shutdown: graceful
   error:
     include-binding-errors: always
+    include-message: always
+    include-stacktrace: always

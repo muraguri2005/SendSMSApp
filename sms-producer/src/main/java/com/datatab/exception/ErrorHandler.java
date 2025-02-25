@@ -15,9 +15,6 @@ public final class ErrorHandler implements Serializable {
         errors = new HashMap<>();
     }
 
-    public boolean hasErrors() {
-        return !errors.isEmpty();
-    }
 
     private Map<String, String> getNamespaceErrorMap(String namespace) {
         Map<String, String> map = errors.get(namespace);
@@ -31,11 +28,6 @@ public final class ErrorHandler implements Serializable {
     public void addGeneralError(String property, String message) {
         getNamespaceErrorMap("error").put(property, message);
 
-    }
-
-
-    public Map<String, Map<String, String>> getErrors() {
-        return errors;
     }
 
 

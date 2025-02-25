@@ -8,4 +8,5 @@ public class SmsDto {
     @NotBlank(message = "recipient is required")
     public String recipient;
     public String sender;
+    public Long id;
 }
