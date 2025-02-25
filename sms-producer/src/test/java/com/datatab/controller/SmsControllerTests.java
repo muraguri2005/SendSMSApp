@@ -1,6 +1,7 @@
 package com.datatab.controller;
 
 import com.datatab.controller.dto.SmsDto;
+import com.datatab.exception.BaseExceptionHandler;
 import com.datatab.service.SmsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +34,7 @@ public class SmsControllerTests {
         when(smsService.findAll(any())).thenReturn(new PageImpl<>(List.of(new SmsDto()), Pageable.ofSize(1), 1));
         webTestClient = WebTestClient.bindToController(new SmsController(smsService))
                 .argumentResolvers(argumentResolverConfigurer -> argumentResolverConfigurer.addCustomResolver(new ReactivePageableHandlerMethodArgumentResolver()))
+                .controllerAdvice(new BaseExceptionHandler())
                 .build();
     }
 
